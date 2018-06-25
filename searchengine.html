@@ -1,0 +1,62 @@
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<title>search engine mock up</title>
+</head>
+
+<body>
+
+<center><h1>search engine mock up</h1></center>
+
+<center>
+<form onsubmit="return false">
+<input id="searchbar" placeholder="_"/>
+<button onclick="searchThat($('#searchbar').val())">search</button>
+</form>
+</center>
+
+<div id="message"></div>
+
+<div id="output"></div>
+
+<script>
+var Results;
+
+function searchIt(data){
+ var x=new XMLHttpRequest();
+ x.onreadystagechange=function(data){searchResults(data);};
+ x.open("GET","searchdb.php?look="+data,true);
+ x.send();
+
+}
+
+function searchThat(data){
+ $.get("searchdb.php?look="+data,function(x){console.log(x);Results=JSON.parse(x);searchResults(Results);});
+}
+
+function searchResults(data){
+ var output=[];
+ if(Results!==undefined)
+  {//$("#output").text(JSON.stringify(Results));
+   
+    Results.map(function(x){console.log(x.data);
+                            var q=`<p><a href="#">${x.data}</a></p>
+                                  <p>lorem ipsum sen dolora penoj kiuj neniam pli</p>
+                                  <p>amas siajn gefratojn sengxenante pri ia estonteca</p>`;
+                            if(x.data!=""){output.push(q)};     
+                           });
+    //output.pop();
+    $("#output").html(output.join(''));
+  }
+ else
+  {$("#output").text('nothing found');}
+};
+
+//setInterval(function(){searchResults(Results);},600);
+
+</script>
+
+
+</body>
+</html>
+
