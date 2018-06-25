@@ -16,6 +16,8 @@
 
 <div id="message"></div>
 
+<div id="outputData" onclick="outputData()">show data from database</div>
+
 <script>
 function insertData(data){
  console.log(data);
@@ -28,6 +30,18 @@ function insertData(data){
  
 
 }
+
+function outputData(){
+ console.log("outputData running");
+ 
+ function showData(data){
+  $('#outputData').text(data);
+ }
+
+ $.post("outputdata.php","",function(x){showData(x);});
+ 
+}
+
 
 </script>
 
